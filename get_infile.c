@@ -30,13 +30,13 @@ static void	write_input(int write_end, const char *target)
 	free(limiter);
 }
 
-static int	get_heredoc(const char *limiter)
+static int	get_heredoc(const char *target)
 {
 	int	here_pipe[2];
 
 	if (pipe(here_pipe))
 		exit_with_status(strerror(errno), FAILURE);
-	write_input(here_pipe[1], limiter);
+	write_input(here_pipe[1], target);
 	close(here_pipe[1]);
 	return (here_pipe[0]);
 }
