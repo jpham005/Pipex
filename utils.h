@@ -1,7 +1,7 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-# define WRONG_USAGE "Usage: ./pipex infile, [limiter], cmd, ..., outfile\n"
+# define WRONG_USAGE "Usage: ./pipex infile, [limiter], cmd, ..., outfile"
 
 enum e_exit_status
 {

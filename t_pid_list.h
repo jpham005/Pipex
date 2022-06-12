@@ -1,5 +1,5 @@
-#ifndef T_PID_H
-# define T_PID_H
+#ifndef T_PIDLIST_H
+# define T_PIDLIST_H
 
 # include <unistd.h>
 

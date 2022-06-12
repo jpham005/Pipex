@@ -23,13 +23,11 @@ static int	open_outfile(int is_heredoc, const char *outfile)
 }
 
 int	get_outfile(
-	t_args *args, t_pid_list *pids, int pipeline[2], const char *outfile
+	t_args *args, int pipeline[2], const char *outfile
 )
 {
 	if (!args->cmds->next)
 		return (open_outfile(args->is_heredoc, outfile));
-	if (pipe(pipeline))
-		wait_exit_failure(strerror(errno), pids);
 	return (pipeline[1]);
 }
 

@@ -1,12 +1,15 @@
 #include "execute.h"
 
+#include <errno.h>
+#include <string.h>
+
 #include "child.h"
 #include "utils.h"
 #include "wait_all.h"
 
 #include "libft.h"
-#include <stdio.h>
-static int	set_in_out(int in, int out)
+
+static int	set_in_out(int in, int out, int pipeline[2])
 {
 	int	stat;
 
@@ -15,6 +18,7 @@ static int	set_in_out(int in, int out)
 		return (0);
 	stat |= dup2(in, STDIN_FILENO);
 	stat |= dup2(out, STDOUT_FILENO);
+	close(pipeline[0]);
 	close(in);
 	close(out);
 	return (stat > 0);
@@ -39,11 +43,13 @@ t_pid_list	*execute(int argc, char **argv, char **envp, t_args *args)
 	pids = NULL;
 	while (args->cmds)
 	{
-		out = get_outfile(args, pids, pipeline, argv[argc - 1]);
+		if (args->cmds->next && pipe(pipeline))
+			wait_exit_failure(strerror(errno), pids);
 		pid = make_child(&pids);
 		if (!pid)
 		{
-			if (!set_in_out(in, out))
+			out = get_outfile(args, pipeline, argv[argc - 1]);
+			if (!set_in_out(in, out, pipeline))
 				exit_with_status(NULL, REDIR_FAILURE);
 			child(args->cmds, envp);
 		}

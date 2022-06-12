@@ -5,7 +5,7 @@
 
 #include "libft.h"
 
-static void	parse_heredoc(int argc, char **argv, t_args* args)
+static void	parse_heredoc(int argc, char **argv, t_args *args)
 {
 	if (!ft_strncmp(argv[1], "heredoc", 8))
 	{
@@ -17,7 +17,7 @@ static void	parse_heredoc(int argc, char **argv, t_args* args)
 		args->is_heredoc = 0;
 }
 
-static void	parse_cmds(int argc, char **argv, t_args* args)
+static void	parse_cmds(int argc, char **argv, t_args *args)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ static void	parse_cmds(int argc, char **argv, t_args* args)
 		add_front_cmd_list(&(args->cmds), get_cmds(argv[i--]));
 }
 
-void	parse(int argc, char **argv, t_args* args)
+void	parse(int argc, char **argv, t_args *args)
 {
 	parse_heredoc(argc, argv, args);
 	parse_cmds(argc, argv, args);

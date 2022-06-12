@@ -10,6 +10,6 @@ enum e_quote_mask
 };
 
 char	**get_cmds(const char *str);
-void	parse(int argc, char **argv, t_args* args);
+void	parse(int argc, char **argv, t_args *args);
 
 #endif

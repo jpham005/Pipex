@@ -14,17 +14,17 @@
 
 int	ft_putstr_fd(const char *s, int fd)
 {
-  ssize_t written;
-  size_t  len;
+	ssize_t	written;
+	size_t	len;
 
-  written = 0;
-  len = ft_strlen(s);
-  while (len > 0)
-  {
-    written = write(fd, s, len);
-    if (written < 0)
-      return (0);
-    len -= (size_t) written;
-  }
-  return (len == 0);
+	written = 0;
+	len = ft_strlen(s);
+	while (len > 0)
+	{
+		written = write(fd, s, len);
+		if (written < 0)
+			return (0);
+		len -= (size_t) written;
+	}
+	return (len == 0);
 }

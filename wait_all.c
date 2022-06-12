@@ -4,8 +4,7 @@
 
 #include "utils.h"
 
-const static int	g_termsig_code = 128;
-const static int	g_stopsig_code = 128;
+const static int	g_signal_code = 128;
 
 static int	get_exit_status(int status)
 {
@@ -17,10 +16,10 @@ static int	get_exit_status(int status)
 	if (w_status == 0)
 		return ((status >> 8) & 0x000000ff);
 	if ((w_status != w_stopped) && (w_status != 0))
-		return (g_termsig_code + w_status);
+		return (g_signal_code + w_status);
 	if ((w_status == 0177) && ((w_status >> 8) != 0x13))
-		return (g_stopsig_code + sig_stop);
-	return (g_stopsig_code + sig_cont);
+		return (g_signal_code + sig_stop);
+	return (g_signal_code + sig_cont);
 }
 
 static pid_t	get_last_pid(t_pid_list *head)

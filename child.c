@@ -8,6 +8,8 @@
 
 #include "libft.h"
 
+const static int	g_error_code = 125;
+
 static char	**get_path(char **envp)
 {
 	size_t	i;
@@ -26,10 +28,10 @@ void	execute_with_user_path(char **cmd, char **envp)
 	ft_putstr_fd(cmd[0], STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	if (errno == ENOENT)
-		exit_with_status(FILE_NOT_FOUND_MESSAGE, 127);
+		exit_with_status(FILE_NOT_FOUND_MESSAGE, g_error_code + errno);
 	if (errno == EACCES)
-		exit_with_status(NO_PERMISSION_MESSAGE, 126);
-	exit_with_status(strerror(errno), 125 + errno);
+		exit_with_status(NO_PERMISSION_MESSAGE, g_error_code + EPERM);
+	exit_with_status(strerror(errno), g_error_code + errno);
 }
 
 static char	*find_cmd_from_path(const char *cmd, char **path)
@@ -46,6 +48,8 @@ static char	*find_cmd_from_path(const char *cmd, char **path)
 			free(temp);
 			break ;
 		}
+		if (errno == EACCES)
+			exit_with_status(NO_PERMISSION_MESSAGE, g_error_code + EPERM);
 		free(temp);
 		ft_free((void **) &ret);
 		path++;

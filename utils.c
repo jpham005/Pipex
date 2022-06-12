@@ -6,7 +6,8 @@
 
 void	exit_with_status(const char *str, int exit_status)
 {
-	if (!ft_putstr_fd(str, STDERR_FILENO) || !ft_putstr_fd("\n", STDERR_FILENO))
+	if (str \
+		&& (!ft_putstr_fd(str, STDERR_FILENO) || !ft_putstr_fd("\n", STDERR_FILENO)))
 		exit(FAILURE);
 	exit(exit_status);
 }

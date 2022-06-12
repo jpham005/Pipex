@@ -6,21 +6,20 @@ OBJS		:=	$(SRCS:.c=.o)
 
 LIBFT_DIR	:=	Libft
 LIBFT 		:=	$(addprefix $(LIBFT_DIR)/, libft.a)
-LIBFT_INC	:=	$(addprefix $(LIBFT_DIR)/, libft.h)
 
-INCLUDES	:=	$(LIBFT_INC)
+INCLUDES	:=	$(LIBFT_INC) child.h execute.h parse.h t_args.h t_cmd_list.h \
+				t_pid_list.h utils.h wait_all.h
 
 CC			:=	cc
 CFLAGS		:=	-Wall -Wextra -Werror -g
 
 RM			:=	rm -f
 
-
 .PHONY		:	all
 all			:	$(NAME)
 
 $(NAME)		:	$(LIBFT) $(OBJS) $(INCLUDES)
-	$(CC) $(CFLAGS) $(OBJS) -lft -L$(LIBFT_DIR) -I$(INCLUDES) -o $@
+	$(CC) $(CFLAGS) $(OBJS) -lft -L$(LIBFT_DIR) -o $@
 
 $(LIBFT)	:
 	make -C $(LIBFT_DIR) all
@@ -42,3 +41,6 @@ fclean		:	clean
 re			:
 	make fclean
 	make all
+
+.PHONY		:	bonus
+bonus		:	all
